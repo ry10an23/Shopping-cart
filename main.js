@@ -64,12 +64,19 @@ class UI {
 }
 
 // Local Storage
-class Storage {}
+class Storage {
+  static saveProducts(products) {
+    localStorage.setItem("products", JSON.stringify(products));
+  }
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   const ui = new UI();
   const products = new Products();
 
   // Get all products
-  products.getProducts().then((products) => ui.displayProducts(products));
+  products.getProducts().then((products) => {
+    ui.displayProducts(products);
+    Storage.saveProducts(products);
+  });
 }); //DOMContentLoaded : Event fired when the HTML page has finished loading and the DOM tree construction is complete.
