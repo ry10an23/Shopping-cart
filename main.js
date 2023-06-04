@@ -15,7 +15,17 @@ const productsDom = document.querySelector(".products-centre");
 let cart = [];
 
 //  Getting the Products
-class Products {}
+class Products {
+  async getProducts() {
+    try {
+      let result = await fetch("products.json");
+      let data = await result.json();
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
 
 // Display Products
 class UI {}
@@ -26,4 +36,7 @@ class Storage {}
 document.addEventListener("DOMContentLoaded", () => {
   const ui = new UI();
   const products = new Products();
+
+  // Get all products
+  products.getProducts().then((data) => console.log(data));
 }); //DOMContentLoaded : Event fired when the HTML page has finished loading and the DOM tree construction is complete.
