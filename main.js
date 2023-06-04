@@ -36,7 +36,32 @@ class Products {
 }
 
 // Display Products
-class UI {}
+class UI {
+  displayProducts(products) {
+    let result = "";
+    products.forEach((product) => {
+      result += `
+      <!-- SINGLE PRODUCT -->
+        <article class="product">
+          <div class="img-container">
+            <img
+              src=${product.image}
+              alt="product"
+              class="product-img"
+            />
+            <button class="bag-btn" data-id=${product.id}>
+              <i class="fas fa-shopping-cart"> add to bag </i>
+            </button>
+          </div>
+          <h3>${product.title}</h3>
+          <h4>$${product.price}</h4>
+        </article>
+      <!-- End of Products -->
+      `;
+    });
+    productsDom.innerHTML = result;
+  }
+}
 
 // Local Storage
 class Storage {}
@@ -46,5 +71,5 @@ document.addEventListener("DOMContentLoaded", () => {
   const products = new Products();
 
   // Get all products
-  products.getProducts().then((data) => console.log(data));
+  products.getProducts().then((products) => ui.displayProducts(products));
 }); //DOMContentLoaded : Event fired when the HTML page has finished loading and the DOM tree construction is complete.
