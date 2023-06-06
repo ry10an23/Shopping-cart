@@ -17,6 +17,7 @@ let cart = [];
 //  Getting the Products
 class Products {
   async getProducts() {
+    // Async, await are alawys be togehther.
     try {
       let result = await fetch("products.json");
       let data = await result.json();
@@ -40,6 +41,7 @@ class UI {
   displayProducts(products) {
     let result = "";
     products.forEach((product) => {
+      // Displaying products dynamically
       result += `
       <!-- SINGLE PRODUCT -->
         <article class="product">
@@ -79,4 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ui.displayProducts(products);
     Storage.saveProducts(products);
   });
-}); //DOMContentLoaded : Event fired when the HTML page has finished loading and the DOM tree construction is complete.
+});
+
+// DOMContentLoaded : Event fired when the HTML page has finished loading and the DOM tree construction is complete.
+// JSON.stringify() :  convert a given JS object or value into a JSON string
