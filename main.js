@@ -63,6 +63,22 @@ class UI {
     });
     productsDom.innerHTML = result;
   }
+  getBagButtons() {
+    const buttons = [...document.querySelectorAll(".bag-btn")];
+    buttons.forEach((button) => {
+      let id = button.dataset.id;
+      let inCart = cart.find((item) => item.id === id);
+      if (inCart) {
+        button.innerText = "In Cart";
+        button.disabled = true;
+      } else {
+        button.addEventListener("click", (e) => {
+          e.target.innerText = "In Cart";
+          e.target.disabled = true;
+        });
+      }
+    });
+  }
 }
 
 // Local Storage
@@ -77,10 +93,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const products = new Products();
 
   // Get all products
-  products.getProducts().then((products) => {
-    ui.displayProducts(products);
-    Storage.saveProducts(products);
-  });
+  products
+    .getProducts()
+    .then((products) => {
+      ui.displayProducts(products);
+      Storage.saveProducts(products);
+    })
+    .then(() => {
+      ui.getBagButtons();
+    });
 });
 
 // DOMContentLoaded : Event fired when the HTML page has finished loading and the DOM tree construction is complete.
